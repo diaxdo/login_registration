@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome!</title>
+    </head>
+    <body>
+        <div class="message">
+            <h2>Success! Welcome, {{user.first_name}}!</h2>
+        </div>
+        <table>
+            <tr>Here are users who have registered!:</tr>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Birthday</th>
+            </tr>
+            {% for person in users %}
+            <tr>
+                <td>{{person.first_name}}</td>
+                <td>{{person.last_name}}</td>
+                <td>{{person.email}}</td>
+                <td>{{person.birthday}}</td>
+                <td>
+                    {% if person.id is not user.id %}
+                    <form action='/delete' method='post'>
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{person.id}}">
+                        <input type="submit" value="Delete">
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="logged-in">
+            <form action='/logout' method='post'>
+                {% csrf_token %}
+                <input type="submit" value="Log out" class="button">
+            </form>
+        </div>
+    </body>
+</html>

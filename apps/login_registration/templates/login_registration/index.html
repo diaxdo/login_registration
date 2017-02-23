@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login and Registration~</title>
+    </head>
+    <body>
+        <div class="login-area">
+            {% if messages %}
+            <div class="flash-messages">
+                <ul>
+                    {% for msg in messages %}
+                    {% if msg.tags == "warning" %}
+                    <li class="error-messages">{{msg}}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <form action='/login' method='post'>
+                {% csrf_token %}
+                <h2>Please log in:</h2>
+                <p><label for="mail">E-mail address: <input type="text" name="email"></label></p>
+                <p><label for="password">Password: <input type="password" name="password"></label></p>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+        <div class="register-area">
+            {% if messages %}
+            <div class="flash-messages">
+                <ul>
+                    {% for msg in messages %}
+                    {% if msg.tags == "error" %}
+                    <li class="error-messages">{{msg}}</li>
+                    {% elif msg.tags == "success" %}
+                    <li class="success">{{msg}}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <form action='/register' method='post'>
+                {% csrf_token %}
+                <h2>Please register:</h2>
+                <p><label for="first_name">First Name: <input type="text" name="first_name"></label></p>
+                <p><label for="last_name">Last Name: <input type="text" name="last_name"></label></p>
+                <p><label for="email">Email address: <input type="text" name="email"></label></p>
+                <p><label for="password">Password: <input type="password" name="password"></label></p>
+                <p><label for="confirm_password">Confirm Password: <input type="password" name="confirm_password"></label></p>
+                <p><label for="birthday">Birthday: <input type="date" name="birthday"></label></p>
+                <input type="submit" value="Register">
+            </form>
+        </div>
+    </body>
+</html>
